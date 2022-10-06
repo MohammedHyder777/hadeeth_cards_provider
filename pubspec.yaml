@@ -82,6 +82,12 @@ flutter:
     - family: Amiri
       fonts: 
         - asset: assets/fonts/Amiri-Regular.ttf
+
+    - family: Scheherazade New
+      fonts: 
+        - asset: assets/fonts/ScheherazadeNew-Regular.ttf
+        - asset: assets/fonts/ScheherazadeNew-Bold.ttf
+        
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

@@ -41,7 +41,7 @@ class HadeethCard extends StatelessWidget {
                   child: const Icon(Icons.close),
                 ),
                 const SizedBox(height: 13),
-                Text('عن ${h.rawi} عن النبي صلى الله عليه وسلم قال:',
+                Text('عن ${h.rawi} عن النبي ﷺ قال:',
                     textDirection: TextDirection.rtl,
                     // ignore: prefer_const_constructors
                     style: TextStyle(
@@ -50,7 +50,7 @@ class HadeethCard extends StatelessWidget {
                           : Colors.white,
                       fontWeight: FontWeight.w600,
                       fontSize: 17,
-                      fontFamily: 'Amiri',
+                      fontFamily: 'Scheherazade New',
                     )),
                 const SizedBox(height: 7),
                 Text('(( ${h.hadeeth} )).',
@@ -59,7 +59,7 @@ class HadeethCard extends StatelessWidget {
                     style: const TextStyle(
                       color: Color.fromARGB(255, 6, 19, 133),
                       fontSize: 27,
-                      fontFamily: 'Amiri',
+                      fontFamily: 'Scheherazade New',
                     )),
                 const SizedBox(height: 7),
                 Text(h.degree,
@@ -67,7 +67,7 @@ class HadeethCard extends StatelessWidget {
                     style: TextStyle(
                         color: h.state == 0 ? Colors.green[800] : Colors.white,
                         fontSize: 15,
-                        fontFamily: 'Amiri',
+                        fontFamily: 'Scheherazade New',
                         fontWeight: FontWeight.w600)),
                 const SizedBox(height: 11),
                 ElevatedButton(
@@ -81,7 +81,7 @@ class HadeethCard extends StatelessWidget {
                       Text(h.state == 0 ? 'تم حفظه' : ' إعادة ',
                           style: const TextStyle(
                             color: Colors.white,
-                            fontFamily: 'Amiri',
+                            fontFamily: 'Scheherazade New',
                           )),
                     ],
                   ),

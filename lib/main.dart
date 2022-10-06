@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hadeeth_cards_provider/hadeeth_card.dart';
+import 'package:hadeeth_cards_provider/intro_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'add_hadeeth.dart';
@@ -18,7 +19,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'أحاديث',
-        theme: ThemeData(primarySwatch: Colors.indigo, fontFamily: 'Reem Kufi'),
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+          fontFamily: 'Reem Kufi',
+          dialogTheme: const DialogTheme(
+              contentTextStyle: TextStyle(fontFamily: 'Amiri', fontSize: 18)),
+        ),
         routes: {
           '/': (context) => const MyHomePage(title: 'بطاقات الأحاديث'),
           '/add_page': (context) => const AddPage(),
@@ -36,10 +42,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // Shared Preferences
+  bool flag = true;
+  void changeFlag() async {
+    await Future.delayed(const Duration(seconds: 3));
+    setState(() => flag = false);
+  }
+
   @override
   void initState() {
     super.initState();
+    changeFlag();
   }
 
   /// Show Clear Confirmation Dialog
@@ -178,97 +190,114 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AhadeethModel>(
-        builder: (BuildContext context, value, Widget? child) {
-      return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 176, 201, 243),
-        appBar: AppBar(
-          toolbarHeight: 77,
-          title: Text(
-            widget.title,
-            textDirection: TextDirection.rtl,
-          ),
-          shape: const StadiumBorder(),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownButton(
-                dropdownColor: Colors.indigo[100],
-                elevation: 0,
-                underline: const SizedBox(),
-                onChanged: (String? v) {
-                  if (v == '1') {
-                    showClearConfirm();
-                  }
-                  if (v == '2') {
-                    showResetConfirm();
-                  }
-                },
-                hint: const Text('مزيد خيارات',
-                    style: TextStyle(color: Colors.white)),
-                alignment: AlignmentDirectional.centerEnd,
-                icon: const Icon(Icons.settings, color: Colors.white, size: 27),
-                items: [
-                  DropdownMenuItem(
-                    value: '1',
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(Icons.clear_all, color: Colors.indigo[800]),
-                        Text('إفراغ القائمة',
-                            style: TextStyle(color: Colors.indigo[800])),
+    return flag
+        ? const IntroScreen()
+        : Consumer<AhadeethModel>(
+            builder: (BuildContext context, value, Widget? child) {
+            return Scaffold(
+              backgroundColor: const Color.fromARGB(255, 176, 201, 243),
+              appBar: AppBar(
+                toolbarHeight: 77,
+                title: Text(
+                  widget.title,
+                  textDirection: TextDirection.rtl,
+                ),
+                shape: const StadiumBorder(),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DropdownButton(
+                      dropdownColor: Colors.indigo[100],
+                      elevation: 0,
+                      underline: const SizedBox(),
+                      onChanged: (String? v) {
+                        if (v == '1') {
+                          showClearConfirm();
+                        }
+                        if (v == '2') {
+                          showResetConfirm();
+                        }
+                        if (v == '3') {
+                          Navigator.pushNamed(context, '/add_page');
+                        }
+                      },
+                      hint: const Text('مزيد خيارات',
+                          style: TextStyle(color: Colors.white)),
+                      alignment: AlignmentDirectional.centerEnd,
+                      icon: const Icon(Icons.settings,
+                          color: Colors.white, size: 27),
+                      items: [
+                        DropdownMenuItem(
+                          value: '1',
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(Icons.clear_all, color: Colors.indigo[800]),
+                              Text('إفراغ القائمة',
+                                  style: TextStyle(color: Colors.indigo[800])),
+                            ],
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: '2',
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(Icons.restore_page_outlined,
+                                  color: Colors.indigo[800]),
+                              Text('إعادة ضبط',
+                                  style: TextStyle(color: Colors.indigo[800])),
+                            ],
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: '3',
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(Icons.wysiwyg, color: Colors.indigo[800]),
+                              Text('أضف حديثا',
+                                  style: TextStyle(color: Colors.indigo[800])),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
-                  DropdownMenuItem(
-                    value: '2',
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(Icons.restore_page_outlined,
-                            color: Colors.indigo[800]),
-                        Text('إعادة ضبط',
-                            style: TextStyle(color: Colors.indigo[800])),
-                      ],
-                    ),
+                  const SizedBox(
+                    width: 20,
                   )
                 ],
               ),
-            ),
-            const SizedBox(
-              width: 20,
-            )
-          ],
-        ),
-        body: ListView(
-          children: value.ahadeeth
-              .map(
-                (h) => HadeethCard(
-                  h: h,
-                  doneFunc: () {
-                    setState(() {
-                      h.state = h.state == 0 ? 1 : 0;
-                      value.saveData();
-                    });
-                  },
-                  destroyFunc: () {
-                    value.remove(h);
-                  },
-                ),
-              )
-              .toList(),
-        ),
+              body: ListView(
+                children: value.ahadeeth
+                    .map(
+                      (h) => HadeethCard(
+                        h: h,
+                        doneFunc: () {
+                          setState(() {
+                            h.state = h.state == 0 ? 1 : 0;
+                            value.saveData();
+                          });
+                        },
+                        destroyFunc: () {
+                          value.remove(h);
+                        },
+                      ),
+                    )
+                    .toList(),
+              ),
 
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/add_page');
-          },
-          tooltip: 'أضف حديثا',
-          child: const Icon(
-            Icons.wysiwyg_rounded,
-          ),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
-      );
-    });
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/add_page');
+                },
+                tooltip: 'أضف حديثا',
+                child: const Icon(
+                  Icons.wysiwyg_rounded,
+                ),
+              ), // This trailing comma makes auto-formatting nicer for build methods.
+            );
+          });
   }
 }

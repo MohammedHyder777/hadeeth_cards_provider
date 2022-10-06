@@ -18,18 +18,18 @@ class _AddPageState extends State<AddPage> {
   /// Styles
   ///************************************************ */
   final TextStyle labelStyle = const TextStyle(
-    fontFamily: 'Reem Kufi',
+    fontFamily: 'Scheherazade New',
     fontSize: 18,
     color: Colors.blue,
   );
 
   final TextStyle fieldStyle = const TextStyle(
-    fontFamily: 'Reem Kufi',
+    fontFamily: 'Scheherazade New',
     fontSize: 19,
   );
 
   final TextStyle bTxtStyle = const TextStyle(
-      fontFamily: 'Reem Kufi', fontSize: 15, color: Colors.white);
+      fontFamily: 'Scheherazade New', fontSize: 15, color: Colors.white);
 
   ///
   /// Text Editing Controllers
