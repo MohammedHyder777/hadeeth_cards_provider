@@ -20,11 +20,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'أحاديث',
         theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          fontFamily: 'Reem Kufi',
-          dialogTheme: const DialogTheme(
-              contentTextStyle: TextStyle(fontFamily: 'Amiri', fontSize: 18)),
-        ),
+            primarySwatch: Colors.indigo,
+            fontFamily: 'Reem Kufi',
+            dialogTheme: DialogTheme(
+                contentTextStyle: TextStyle(
+                    fontFamily: 'Amiri',
+                    fontSize: 18,
+                    color: Colors.indigo[700])),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                ),
+              ),
+            )),
         routes: {
           '/': (context) => const MyHomePage(title: 'بطاقات الأحاديث'),
           '/add_page': (context) => const AddPage(),
@@ -147,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 20,
                     ),
                     Text(
-                      'أترغب في استبدال بطاقاتك بالحزمة الأصلية التي تأتي مع البرنامج؟ إن وافقت فستفقد جميع بياناتك',
+                      'أترغب في استبدال بطاقاتك بالحزمة الأصلية التي تأتي مع البرنامج؟\n إن وافقت فستفقد جميع بياناتك',
                       textAlign: TextAlign.center,
                       textDirection: TextDirection.rtl,
                     ),

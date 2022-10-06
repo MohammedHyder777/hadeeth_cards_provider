@@ -29,7 +29,7 @@ class _AddPageState extends State<AddPage> {
   );
 
   final TextStyle bTxtStyle = const TextStyle(
-      fontFamily: 'Scheherazade New', fontSize: 15, color: Colors.white);
+      fontFamily: 'Reem Kufi', fontSize: 14, color: Colors.white);
 
   ///
   /// Text Editing Controllers
