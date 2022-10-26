@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hadeeth_cards_provider/hadeeth_card.dart';
 import 'package:hadeeth_cards_provider/intro_screen.dart';
+import 'package:hadeeth_cards_provider/print_pdf.dart';
 import 'package:provider/provider.dart';
 
 import 'add_hadeeth.dart';
@@ -54,7 +55,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool flag = true;
   void changeFlag() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(milliseconds: 2500));
     setState(() => flag = false);
   }
 
@@ -195,7 +196,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               );
-            })); // end of showdialog
+            }));
+    // end of showdialog
   }
 
   @override
@@ -229,6 +231,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
                         if (v == '3') {
                           Navigator.pushNamed(context, '/add_page');
+                        }
+                        if (v == '4') {
+                          bool failure = false;
+                          try {
+                            printPdf(value.ahadeeth);
+                          } on Exception catch (e) {
+                            failure = true;
+                          }
+                          showPrintPdfSuccess(
+                              context,
+                              failure
+                                  ? 'لم يتيسر طباعة بطاقاتك'
+                                  : 'نجحت طباعة بطاقاتك في ملف pdf.');
                         }
                       },
                       hint: const Text('مزيد خيارات',
@@ -267,6 +282,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               Icon(Icons.wysiwyg, color: Colors.indigo[800]),
                               Text('أضف حديثا',
+                                  style: TextStyle(color: Colors.indigo[800])),
+                            ],
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: '4',
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(Icons.picture_as_pdf,
+                                  color: Colors.indigo[800]),
+                              Text('اطبع بطاقاتك',
                                   style: TextStyle(color: Colors.indigo[800])),
                             ],
                           ),

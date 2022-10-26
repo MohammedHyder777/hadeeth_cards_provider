@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:hadeeth_cards_provider/ahadeeth_model.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,8 @@ class HadeethCard extends StatelessWidget {
                     destroyFunc();
                   },
                   style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all(Colors.red[300]),
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.red[300]),
                       shape: MaterialStateProperty.all(const CircleBorder(
                           side: BorderSide(color: Colors.red)))),
                   child: const Icon(Icons.close),
@@ -65,7 +67,8 @@ class HadeethCard extends StatelessWidget {
                 Text(h.degree,
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
-                        color: h.state == 0 ? Colors.green[800] : Colors.white,
+                        color:
+                            h.state == 0 ? Colors.green[800] : Colors.white,
                         fontSize: 15,
                         fontFamily: 'Scheherazade New',
                         fontWeight: FontWeight.w600)),

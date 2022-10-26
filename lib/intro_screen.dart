@@ -17,7 +17,7 @@ class IntroScreen extends StatelessWidget {
             ),
             const Spacer(flex: 2),
             const Text(
-              'الإصدار  1.0.0',
+              'الإصدار  1.0.0\nنسخة تجريبية',
               style: TextStyle(
                 fontSize: 17.5,
               ),

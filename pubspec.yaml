@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.15
+  pdf: ^3.8.4
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,9 @@ flutter:
       fonts: 
         - asset: assets/fonts/ScheherazadeNew-Regular.ttf
         - asset: assets/fonts/ScheherazadeNew-Bold.ttf
+    - family: Traditional Arabic
+      fonts: 
+        - asset: assets/fonts/Traditional Arabic.ttf
         
   #         style: italic
   #   - family: Trajan Pro
