@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hadeeth_cards_provider/hadeeth_card.dart';
 import 'package:hadeeth_cards_provider/intro_screen.dart';
@@ -222,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       dropdownColor: Colors.indigo[100],
                       elevation: 0,
                       underline: const SizedBox(),
-                      onChanged: (String? v) {
+                      onChanged: (String? v) async {
                         if (v == '1') {
                           showClearConfirm();
                         }
@@ -235,15 +237,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         if (v == '4') {
                           bool failure = false;
                           try {
-                            printPdf(value.ahadeeth);
-                          } on Exception catch (e) {
+                            await printPdf(value.ahadeeth);
+                          } on FileSystemException catch (e) {
                             failure = true;
                           }
-                          showPrintPdfSuccess(
-                              context,
-                              failure
-                                  ? 'لم يتيسر طباعة بطاقاتك'
-                                  : 'نجحت طباعة بطاقاتك في ملف pdf.');
+                          showPrintPdfSuccess(context, failure);
                         }
                       },
                       hint: const Text('مزيد خيارات',
